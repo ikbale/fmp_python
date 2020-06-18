@@ -30,6 +30,7 @@ class FMP(object):
         if output_format=='json':
             data = data.json()
         elif output_format=='pandas':
+            print(type(data.content.decode('UTF-8')))
             data = pd.read_csv(io.StringIO(data.content.decode('UTF-8')))
         else:
             raise FMP.FMPException("FMP.format_data: output must be one of pandas or json")
@@ -40,6 +41,6 @@ def main():
     fmp = FMP()
     indexes = fmp.get_quote_short('AAL')
     fmp.format_data(indexes)
-
+  
 if __name__ == "__main__":
     main()
