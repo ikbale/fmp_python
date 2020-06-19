@@ -1,9 +1,12 @@
+from ..fmpdecorator import FMPDecorator
+from ..constants import BASE_URL
+from ..constants import SUPPORTED_CATEGORIES
+
+
 class RequestBuilder(object):
 
     def __init__(self):
-        base_url = "https://financialmodelingprep.com/api"
-        api_version = "/v3"
-        self.__base_url = base_url+api_version
+        self.__base_url = BASE_URL
         self.__category = None
         self.__subcategories = []
         self.__query_params = {}
@@ -55,7 +58,7 @@ class RequestBuilder(object):
         if query_param:
             self.__query_params.update(query_param)
 
-    #@inject_api_key
+    @FMPDecorator.inject_api_key
     def compile_request(self):
         category = self.__build_category()
         subcategories = self.__build_subcategories()
