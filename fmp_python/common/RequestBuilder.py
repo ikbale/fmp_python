@@ -1,6 +1,6 @@
 from ..fmpdecorator import FMPDecorator
 from ..constants import BASE_URL
-from ..constants import SUPPORTED_CATEGORIES
+from ..fmpvalidator import FMPValidator
 
 
 class RequestBuilder(object):
@@ -42,10 +42,10 @@ class RequestBuilder(object):
         return query_string
     
     def set_category(self, category):
-        if category:
+        if FMPValidator.is_valid_category(category):
             self.__category = category
         else:
-            raise Exception("Category should not be empty !") 
+            raise Exception("Category is not valid !") 
     
     def add_sub_category(self, subcategory):
         if subcategory:
