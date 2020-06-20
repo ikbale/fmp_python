@@ -1,5 +1,5 @@
 BASE_URL = "https://financialmodelingprep.com/api/v3"
-
+INDEX_PREFIX = "^"
 SUPPORTED_CATEGORIES = [
     'profile',
     'quote',

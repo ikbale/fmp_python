@@ -13,4 +13,14 @@ class FMPDecorator():
             else:
                 return request+'&apikey='+api_key
         return deco_function
-        
+    
+    @classmethod
+    def format_data(cls,func):
+        pass
+        """if output_format=='json':
+            data = data.json()
+        elif output_format=='pandas':
+            print(type(data.content.decode('UTF-8')))
+            data = pd.read_csv(io.StringIO(data.content.decode('UTF-8')))
+        else:
+            raise FMP.FMPException("FMP.format_data: output must be one of pandas or json")"""

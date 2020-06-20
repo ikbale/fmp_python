@@ -2,14 +2,15 @@ import pandas as pd
 import requests
 import os
 import io
+from fmp_python.constants import BASE_URL
+from fmp_python.constants import INDEX_PREFIX
+from fmp_python.common.requestbuilder import RequestBuilder
+
 
 class FMP(object):
     """
     Base class that implements  api calls 
     """
-    _API_VERSION = "v3/"
-    _FMP_API_BASE_URL = "https://financialmodelingprep.com/api/"+_API_VERSION
-    _INDEX_SYMBOL = "^"
 
     class FMPException(Exception):
         pass
@@ -18,29 +19,22 @@ class FMP(object):
         self.api_key = api_key or os.getenv('FMP_API_KEY')
 
 
-    def get_quote_short(self, symbol):
-        quote = requests.get(FMP._FMP_API_BASE_URL+"/quote-short/"+symbol+"?apikey="+self.api_key)
+    #@format_data
+    def get_quote_short(self, symbol, data_format):
+        rb = RequestBuilder()
+        rb.set_category('quote-short')
+        rb.add_sub_category(symbol)
+        quote = requests.get(rb.compile_request())
+        return quote
+    
+    def get_quote(self,symbol):
+        rb = RequestBuilder()
+        rb.set_category('quote')
+        rb.add_sub_category(symbol)
+        quote = requests.get(rb.compile_request())
         return quote
 
     def get_index_quote(self,symbol):
-        index_quote = requests.get(FMP._FMP_API_BASE_URL+"/quote/"+FMP._INDEX_SYMBOL+symbol+"?apikey="+self.api_key)
-        return index_quote
+        return FMP.get_quote(self,INDEX_PREFIX+symbol)
 
-    def format_data(self, data, output_format='pandas'):
-        if output_format=='json':
-            data = data.json()
-        elif output_format=='pandas':
-            print(type(data.content.decode('UTF-8')))
-            data = pd.read_csv(io.StringIO(data.content.decode('UTF-8')))
-        else:
-            raise FMP.FMPException("FMP.format_data: output must be one of pandas or json")
-
-
-
-def main():
-    fmp = FMP()
-    indexes = fmp.get_quote_short('AAL')
-    fmp.format_data(indexes)
-  
-if __name__ == "__main__":
-    main()
+   
