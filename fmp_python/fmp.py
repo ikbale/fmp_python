@@ -5,6 +5,7 @@ import io
 from fmp_python.constants import BASE_URL
 from fmp_python.constants import INDEX_PREFIX
 from fmp_python.common.requestbuilder import RequestBuilder
+from fmp_python.fmpdecorator import FMPDecorator
 
 
 class FMP(object):
@@ -15,12 +16,13 @@ class FMP(object):
     class FMPException(Exception):
         pass
 
-    def __init__(self, api_key=None):
+    def __init__(self, api_key=None, output_format='json'):
         self.api_key = api_key or os.getenv('FMP_API_KEY')
+        self.output_format = output_format
 
 
-    #@format_data
-    def get_quote_short(self, symbol, data_format):
+    @FMPDecorator.format_data
+    def get_quote_short(self, symbol):
         rb = RequestBuilder()
         rb.set_category('quote-short')
         rb.add_sub_category(symbol)
