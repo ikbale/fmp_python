@@ -1,6 +1,8 @@
 import os
 import functools
-import pandas
+import pandas as pd
+from fmp_python.common.fmpexception import FMPException
+
 
 class FMPDecorator():
 
@@ -24,9 +26,9 @@ class FMPDecorator():
             if self.output_format=='json':
                 return response.json()
             elif self.output_format=='pandas':
-                pass # TODO format pandas
+                return pd.DataFrame(response.json())
             else:
-                raise Exception("FMP.format_data: output must be one of pandas or json") # TODO manage specific exception
+                raise FMPException("Output must be either pandas or json",FMPDecorator.format_data.__name__) 
 
         return _call_wrapper
 

@@ -1,6 +1,7 @@
 from ..fmpdecorator import FMPDecorator
 from ..constants import BASE_URL
 from ..fmpvalidator import FMPValidator
+from fmp_python.common.fmpexception import FMPException
 
 
 class RequestBuilder(object):
@@ -14,7 +15,7 @@ class RequestBuilder(object):
 
     def __build_category(self):
         if self.__category is None:
-            raise Exception("Category should not be empty !") 
+            raise FMPException("Category should not be empty !") 
         return ''.join(['/', self.__category])
 
     def __build_subcategories(self):
@@ -45,7 +46,7 @@ class RequestBuilder(object):
         if FMPValidator.is_valid_category(category):
             self.__category = category
         else:
-            raise Exception("Category is not valid !") 
+            raise FMPException("Category is not valid !", RequestBuilder.set_category.__name__) 
     
     def add_sub_category(self, subcategory):
         if subcategory:
