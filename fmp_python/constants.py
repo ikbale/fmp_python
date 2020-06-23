@@ -21,6 +21,7 @@ SUPPORTED_CATEGORIES = [
     'earning_calendar',
     'historical',
     'historical-chart',
+    'historical-price-full',
     'stock-screener',
     'rss_feed',
     'sp500_constituent',

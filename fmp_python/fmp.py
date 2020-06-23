@@ -39,6 +39,7 @@ class FMP(object):
         return FMP.get_quote(self,INDEX_PREFIX+symbol)
     
     @FMPDecorator.format_data
+    #@TODO enumerate interval(1min-5min-1hour-4hour)
     def get_historical_chart(self, interval, symbol):
         rb = RequestBuilder()
         rb.set_category('historical-chart')
