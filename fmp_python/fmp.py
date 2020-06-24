@@ -6,6 +6,9 @@ from fmp_python.constants import BASE_URL
 from fmp_python.constants import INDEX_PREFIX
 from fmp_python.common.requestbuilder import RequestBuilder
 from fmp_python.fmpdecorator import FMPDecorator
+from fmp_python.fmpvalidator import FMPValidator
+from fmp_python.common.fmpexception import FMPException
+
 
 
 class FMP(object):
@@ -34,23 +37,23 @@ class FMP(object):
         quote = requests.get(rb.compile_request())
         return quote
 
-    @FMPDecorator.format_data
     def get_index_quote(self,symbol):
-        return FMP.get_quote(self,INDEX_PREFIX+symbol)
+        return FMP.get_quote(self,str(INDEX_PREFIX)+symbol)
     
     @FMPDecorator.format_data
-    #@TODO enumerate interval(1min-5min-1hour-4hour)
     def get_historical_chart(self, interval, symbol):
-        rb = RequestBuilder()
-        rb.set_category('historical-chart')
-        rb.add_sub_category(interval)
-        rb.add_sub_category(symbol)
-        hc = requests.get(rb.compile_request())
-        return hc
+        if FMPValidator.is_valid_interval(interval):
+            rb = RequestBuilder()
+            rb.set_category('historical-chart')
+            rb.add_sub_category(interval)
+            rb.add_sub_category(symbol)
+            hc = requests.get(rb.compile_request())
+            return hc
+        else:
+            raise FMPException('Interval value is not valid',FMP.get_historical_chart.__name__)
 
-    @FMPDecorator.format_data
     def get_historical_chart_index(self,interval,symbol):
-        return FMP.get_historical_chart(self, interval, INDEX_PREFIX+symbol)
+        return FMP.get_historical_chart(self, interval, str(INDEX_PREFIX)+symbol)
 
     @FMPDecorator.format_data
     def get_historical_price(self,symbol):

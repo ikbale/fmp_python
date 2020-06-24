@@ -24,6 +24,7 @@ class FMPDecorator():
         def _call_wrapper(self, *args, **kwargs):
             response = func(self, *args, **kwargs)
             if self.output_format=='json':
+                print(response)
                 return response.json()
             elif self.output_format=='pandas':
                 return pd.DataFrame(response.json())

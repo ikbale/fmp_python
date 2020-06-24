@@ -1,5 +1,6 @@
 BASE_URL = "https://financialmodelingprep.com/api/v3"
 INDEX_PREFIX = "^"
+SUPPORTED_INTERVALS = ["1min","5min","15min","30min","1hour","4hour"]
 SUPPORTED_CATEGORIES = [
     'profile',
     'quote',
