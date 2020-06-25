@@ -70,5 +70,3 @@ class TestFMP(unittest.TestCase):
             quote = fmp.get_historical_price('JMCRX')
             self.assertIsInstance(quote,list)
 
- 
-  

@@ -16,11 +16,13 @@ class FMP(object):
     Base class that implements  api calls 
     """
 
-    def __init__(self, api_key=None, output_format='json'):
+    def __init__(self, api_key=None, output_format='json', write_to_file=False):
         self.api_key = api_key or os.getenv('FMP_API_KEY')
         self.output_format = output_format
+        self.write_to_file = write_to_file
 
 
+    @FMPDecorator.write_to_file
     @FMPDecorator.format_data
     def get_quote_short(self, symbol):
         rb = RequestBuilder()
