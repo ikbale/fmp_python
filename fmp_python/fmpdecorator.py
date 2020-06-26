@@ -52,6 +52,17 @@ class FMPDecorator():
             return response
         return _call_wrapper
 
+    @classmethod
+    def request_counter(cls,func):
+        @functools.wraps(func)
+        def _call_wrapper(self, *args, **kwargs):
+            _call_wrapper.calls += 1
+            response = func(self, *args, **kwargs)
+            return response
+        _call_wrapper.calls = 0
+        print(_call_wrapper.calls)
+        return _call_wrapper
+
     @classmethod           
     def __build_output_tree(cls, symbol, category):
         current_day = datetime.today().strftime('%Y-%m-%d')

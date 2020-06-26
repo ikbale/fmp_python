@@ -28,7 +28,7 @@ class FMP(object):
         rb = RequestBuilder()
         rb.set_category('quote-short')
         rb.add_sub_category(symbol)
-        quote = requests.get(rb.compile_request())
+        quote = self.__do_request__(rb.compile_request())
         return quote
     
     @FMPDecorator.format_data
@@ -36,7 +36,7 @@ class FMP(object):
         rb = RequestBuilder()
         rb.set_category('quote')
         rb.add_sub_category(symbol)
-        quote = requests.get(rb.compile_request())
+        quote = self.__do_request__(rb.compile_request())
         return quote
 
     def get_index_quote(self,symbol):
@@ -49,7 +49,7 @@ class FMP(object):
             rb.set_category('historical-chart')
             rb.add_sub_category(interval)
             rb.add_sub_category(symbol)
-            hc = requests.get(rb.compile_request())
+            hc = self.__do_request__(rb.compile_request())
             return hc
         else:
             raise FMPException('Interval value is not valid',FMP.get_historical_chart.__name__)
@@ -62,10 +62,13 @@ class FMP(object):
         rb = RequestBuilder()
         rb.set_category('historical-price-full')
         rb.add_sub_category(symbol)
-        hp = requests.get(rb.compile_request())
+        hp = self.__do_request__(rb.compile_request())
         return hp
 
 
-
+    @FMPDecorator.request_counter
+    def __do_request__(self,url):
+        return requests.get(url)
+        
 
    
