@@ -2,6 +2,8 @@ import pandas as pd
 import requests
 import os
 import io
+from datetime import datetime
+
 from fmp_python.constants import BASE_URL
 from fmp_python.constants import INDEX_PREFIX
 from fmp_python.common.requestbuilder import RequestBuilder
@@ -20,6 +22,8 @@ class FMP(object):
         self.api_key = api_key or os.getenv('FMP_API_KEY')
         self.output_format = output_format
         self.write_to_file = write_to_file
+        self.current_day = datetime.today().strftime('%Y-%m-%d')
+
 
 
     @FMPDecorator.write_to_file
@@ -66,7 +70,6 @@ class FMP(object):
         return hp
 
 
-    @FMPDecorator.request_counter
     def __do_request__(self,url):
         return requests.get(url)
         
