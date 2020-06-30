@@ -79,5 +79,5 @@ fmp.get_historical_price(symbol: str)
 *Usage Example*
 ```
 fmp = FMP(output_format = 'pandas', write_to_file= True)
-fmp.get_historical_chart_index('GSPC')
+fmp.get_historical_price('GSPC')
 ```
