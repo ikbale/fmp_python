@@ -1,7 +1,8 @@
 language: python
 cache: pip
 python:
-   - '2.7'
    - '3.6'
+   - '3.7'
+   - '3.8'
 install: python setup.py install
-script: python -m pytest 
+script: pytest 
