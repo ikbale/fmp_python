@@ -14,6 +14,8 @@ setup(
     install_requires = [
         'pandas',
 		'requests',
+    ],
+    test_requires = [
         'requests_mock'
     ],
     classifiers=[
