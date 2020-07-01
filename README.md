@@ -16,8 +16,30 @@ git clone https://github.com/ikbale/fmp_python.git
 
 pip install -e fmp_python
 ```
-# Method Reference
-- Defaut values are output_format = **'json'** and write_to_file = **False** 
+# Usage
+To get data from the API:
+- import the library and call the object with your API key:
+```
+from fmp_python.fmp import FMP
+
+fmp = FMP(api_key='YOUR_API_KEY')
+fmp.get_quote('AAL')
+```
+- Or, you can store it in the environment variable FMP_API_KEY
+```
+from fmp_python.fmp import FMP
+
+fmp = FMP(output_format='pandas', write_to_file=True)
+fmp.get_quote('AAL')
+```
+You can choose which output format you want your data **output_format = 'pandas' or 'json'**. 
+
+*'json' is the default value*
+
+You can also choose if you want the output to be stored in a file (in C:/tmp) by setting **write_to_file = True**
+
+*'False' is the default value*
+
 ## Real Time Stock Price
 *Reference*: https://financialmodelingprep.com/developer/docs/#Company-Quote
 ```

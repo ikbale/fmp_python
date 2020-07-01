@@ -1,6 +1,6 @@
-from ..fmpdecorator import FMPDecorator
-from ..constants import BASE_URL
-from ..fmpvalidator import FMPValidator
+from fmp_python.common.fmpdecorator import FMPDecorator
+from fmp_python.common.constants import BASE_URL
+from fmp_python.common.fmpvalidator import FMPValidator
 from fmp_python.common.fmpexception import FMPException
 
 
@@ -20,17 +20,14 @@ class RequestBuilder(object):
 
     def __build_subcategories(self):
         subcategories = '/'.join(self.__subcategories)
-        if subcategories:
-            return ''.join(['/', subcategories])
-        else:
-            return ''
+        return ''.join(['/', subcategories]) if subcategories else ''
     
     def __build_query_params(self):
-        query_params_dict = self.__query_params.copy()                
-        
-        if len(query_params_dict) ==  0:
+        if len(self.__query_params) ==  0:
             return ''
-        
+    
+        query_params_dict = self.__query_params.copy()                
+
         query_string = '?'
         while len(query_params_dict) > 0:
             item = query_params_dict.popitem()

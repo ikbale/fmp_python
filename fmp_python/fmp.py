@@ -4,11 +4,10 @@ import os
 import io
 from datetime import datetime
 
-from fmp_python.constants import BASE_URL
-from fmp_python.constants import INDEX_PREFIX
+from fmp_python.common.constants import BASE_URL,INDEX_PREFIX
 from fmp_python.common.requestbuilder import RequestBuilder
-from fmp_python.fmpdecorator import FMPDecorator
-from fmp_python.fmpvalidator import FMPValidator
+from fmp_python.common.fmpdecorator import FMPDecorator
+from fmp_python.common.fmpvalidator import FMPValidator
 from fmp_python.common.fmpexception import FMPException
 
 
@@ -35,6 +34,7 @@ class FMP(object):
         quote = self.__do_request__(rb.compile_request())
         return quote
     
+    @FMPDecorator.write_to_file
     @FMPDecorator.format_data
     def get_quote(self,symbol):
         rb = RequestBuilder()
@@ -46,6 +46,7 @@ class FMP(object):
     def get_index_quote(self,symbol):
         return FMP.get_quote(self,str(INDEX_PREFIX)+symbol)
     
+    @FMPDecorator.write_to_file
     @FMPDecorator.format_data
     def get_historical_chart(self, interval, symbol):
         if FMPValidator.is_valid_interval(interval):
@@ -61,6 +62,7 @@ class FMP(object):
     def get_historical_chart_index(self,interval,symbol):
         return FMP.get_historical_chart(self, interval, str(INDEX_PREFIX)+symbol)
 
+    @FMPDecorator.write_to_file
     @FMPDecorator.format_data
     def get_historical_price(self,symbol):
         rb = RequestBuilder()
@@ -72,6 +74,8 @@ class FMP(object):
 
     def __do_request__(self,url):
         return requests.get(url)
+
+
         
 
    

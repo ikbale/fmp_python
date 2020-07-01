@@ -16,3 +16,4 @@ class FMPException(Exception):
             return 'FMPException: {0}'.format(self.message)
         else:
             return 'FMPException has been raised'
+            

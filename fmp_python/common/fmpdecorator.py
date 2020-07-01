@@ -59,10 +59,10 @@ class FMPDecorator():
         current_full_date =  datetime.now().strftime("%d-%m-%Y_%Hh%Mmin%Ss")
         
         filename = '_'.join([symbol,current_full_date])
-        root = os.path.dirname(os.path.abspath("__file__"))
-        outdir = os.path.join(root,'tmp',category,current_day)
+        outdir = os.path.join('C:','tmp',category,current_day)
         os.makedirs(outdir, exist_ok=True)
 
         fullname = os.path.join(outdir,filename+'.xlsx')
 
         return fullname
+

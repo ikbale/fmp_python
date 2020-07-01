@@ -1,5 +1,5 @@
 import os
-from fmp_python.constants import SUPPORTED_CATEGORIES, SUPPORTED_INTERVALS
+from fmp_python.common.constants import SUPPORTED_CATEGORIES, SUPPORTED_INTERVALS
 
 class FMPValidator():
     

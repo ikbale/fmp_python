@@ -1,7 +1,7 @@
 import unittest
 import os
 from unittest.mock import patch
-from fmp_python.constants import BASE_URL
+from fmp_python.common.constants import BASE_URL
 from fmp_python.common.requestbuilder import RequestBuilder
 
 @patch.dict(os.environ,{'FMP_API_KEY':'demo'})
@@ -30,4 +30,5 @@ class TestRequestBuilder(unittest.TestCase):
         rb.set_category('balance-sheet-statement')
         rb.add_sub_category('AAPL')
         rb.set_query_params({'period':'quarter'})
-        self.assertEqual(rb.compile_request(), BASE_URL+"/balance-sheet-statement/AAPL?period=quarter&apikey=demo") 
+        self.assertEqual(rb.compile_request(), BASE_URL+"/balance-sheet-statement/AAPL?period=quarter&apikey=demo")
+         
