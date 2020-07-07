@@ -13,7 +13,7 @@ class TestFMP(unittest.TestCase):
     def get_file_from_name(name):
         script_path = os.path.abspath(__file__)
         script_directory = os.path.dirname(script_path)
-        return os.path.join(script_directory,str('test_data\\'),name)
+        return os.path.join(script_directory,str('test_data'),name)
 
 
 

@@ -10,20 +10,18 @@ from fmp_python.common.fmpdecorator import FMPDecorator
 from fmp_python.common.fmpvalidator import FMPValidator
 from fmp_python.common.fmpexception import FMPException
 
-
+   
+"""
+Base class that implements api calls 
+"""
 
 class FMP(object):
-    """
-    Base class that implements  api calls 
-    """
 
     def __init__(self, api_key=None, output_format='json', write_to_file=False):
         self.api_key = api_key or os.getenv('FMP_API_KEY')
         self.output_format = output_format
         self.write_to_file = write_to_file
         self.current_day = datetime.today().strftime('%Y-%m-%d')
-
-
 
     @FMPDecorator.write_to_file
     @FMPDecorator.format_data
@@ -74,8 +72,3 @@ class FMP(object):
 
     def __do_request__(self,url):
         return requests.get(url)
-
-
-        
-
-   

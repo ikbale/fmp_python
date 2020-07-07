@@ -13,7 +13,10 @@ setup(
     packages = find_packages(),
     install_requires = [
         'pandas',
-		'requests'
+		'requests',
+    ],
+    test_requires = [
+        'requests_mock'
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
