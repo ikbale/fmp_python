@@ -1,2 +1,6 @@
 __pycache__/
 .vscode/
+build/
+dist/
+fmp_python.egg-info/
+

@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.com/ikbale/fmp_python.svg?branch=master)](https://travis-ci.com/ikbale/fmp_python)
+[![PyPI version](https://badge.fury.io/py/fmp-python.svg)](https://badge.fury.io/py/fmp-python)
+[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/ikbale/fmp_python.svg)](http://isitmaintained.com/project/ikbale/fmp_python "Average time to resolve an issue")
+[![Percentage of issues still open](https://isitmaintained.com/badge/open/ikbale/fmp_python.svg)](http://isitmaintained.com/project/ikbale/fmp_python "Percentage of issues still open")
 # Financial Modeling Prep Python Module
 
 Python module to get stock data from the Financial Modeling Prep API
