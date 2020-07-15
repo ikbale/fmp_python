@@ -5,7 +5,7 @@ setup(
     name = 'fmp_python',
     version = '0.1.0',
     description = 'Python wrapper for Financial Modeling Prep API',
-    keywords = ' python finance trading stocks prices worldtradingdata wtd alphavantage iex',
+    keywords = ' python finance trading stocks prices financialmodelingprep api fmp alphavantage wtd iex',
     url = 'https://github.com/ikbale/fmp_python',
     author = 'Ikbale Maghraoui',
     author_email = 'ikbale94@gmail.com',
@@ -19,7 +19,7 @@ setup(
         'requests_mock'
     ],
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: In progress',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
