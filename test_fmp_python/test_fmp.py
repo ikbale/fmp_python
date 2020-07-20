@@ -69,4 +69,4 @@ class TestFMP(unittest.TestCase):
         with open(file_path) as f:
             mock_request.get(BASE_URL+"/historical-price-full/JMCRX?apikey=demo", text=f.read())
             quote = fmp.get_historical_price('JMCRX')
-            self.assertIsInstance(quote,dict)
+            self.assertIsInstance(quote,list)

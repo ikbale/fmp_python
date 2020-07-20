@@ -61,7 +61,7 @@ class FMP(object):
         return FMP.get_historical_chart(self, interval, str(INDEX_PREFIX)+symbol)
 
     @FMPDecorator.write_to_file
-    @FMPDecorator.format_data
+    @FMPDecorator.format_historical_data
     def get_historical_price(self,symbol):
         rb = RequestBuilder()
         rb.set_category('historical-price-full')
