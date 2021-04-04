@@ -26,7 +26,7 @@ class FMP(object):
     @FMPDecorator.write_to_file
     @FMPDecorator.format_data
     def get_quote_short(self, symbol):
-        rb = RequestBuilder()
+        rb = RequestBuilder(self.api_key)
         rb.set_category('quote-short')
         rb.add_sub_category(symbol)
         quote = self.__do_request__(rb.compile_request())
@@ -35,7 +35,7 @@ class FMP(object):
     @FMPDecorator.write_to_file
     @FMPDecorator.format_data
     def get_quote(self,symbol):
-        rb = RequestBuilder()
+        rb = RequestBuilder(self.api_key)
         rb.set_category('quote')
         rb.add_sub_category(symbol)
         quote = self.__do_request__(rb.compile_request())
@@ -48,7 +48,7 @@ class FMP(object):
     @FMPDecorator.format_data
     def get_historical_chart(self, interval, symbol):
         if FMPValidator.is_valid_interval(interval):
-            rb = RequestBuilder()
+            rb = RequestBuilder(self.api_key)
             rb.set_category('historical-chart')
             rb.add_sub_category(interval)
             rb.add_sub_category(symbol)
@@ -63,7 +63,7 @@ class FMP(object):
     @FMPDecorator.write_to_file
     @FMPDecorator.format_historical_data
     def get_historical_price(self,symbol):
-        rb = RequestBuilder()
+        rb = RequestBuilder(self.api_key)
         rb.set_category('historical-price-full')
         rb.add_sub_category(symbol)
         hp = self.__do_request__(rb.compile_request())
