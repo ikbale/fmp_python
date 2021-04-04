@@ -6,7 +6,8 @@ from fmp_python.common.fmpexception import FMPException
 
 class RequestBuilder(object):
 
-    def __init__(self):
+    def __init__(self, api_key):
+        self.api_key = api_key
         self.__base_url = BASE_URL
         self.__category = None
         self.__subcategories = []
