@@ -30,7 +30,12 @@ class FMPDecorator():
             if self.output_format=='json':
                 return response.json()
             elif self.output_format=='pandas':
-                return pd.DataFrame(response.json()) 
+                df = pd.DataFrame()
+                try: 
+                    df = pd.DataFrame(response.json()) 
+                except ValueError as ve:
+                    pass #logger.error('{}',ve)
+                return df 
             else:
                 raise FMPException("Output must be either pandas or json",FMPDecorator.format_data.__name__) 
 
