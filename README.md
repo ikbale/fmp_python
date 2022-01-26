@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.com/ikbale/fmp_python.svg?branch=master)](https://travis-ci.com/ikbale/fmp_python)
+[![Build Status](https://travis-ci.com/qlikstar/fmp_python.svg?branch=master)](https://travis-ci.com/qlikstar/fmp_python)
 [![PyPI version](https://badge.fury.io/py/fmp-python.svg)](https://badge.fury.io/py/fmp-python)
-[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/ikbale/fmp_python.svg)](http://isitmaintained.com/project/ikbale/fmp_python "Average time to resolve an issue")
-[![Percentage of issues still open](https://isitmaintained.com/badge/open/ikbale/fmp_python.svg)](http://isitmaintained.com/project/ikbale/fmp_python "Percentage of issues still open")
+[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/qlikstra/fmp_python.svg)](http://isitmaintained.com/project/qlikstar/fmp_python "Average time to resolve an issue")
+[![Percentage of issues still open](https://isitmaintained.com/badge/open/qlikstar/fmp_python.svg)](http://isitmaintained.com/project/qlikstar/fmp_python "Percentage of issues still open")
 
 # Financial Modeling Prep Python Module
 
@@ -23,7 +23,7 @@ pip install fmp_python
 - From the source:
 
 ```
-git clone https://github.com/ikbale/fmp_python.git
+git clone https://github.com/qlikstar/fmp_python.git
 
 pip install -e fmp_python
 ```

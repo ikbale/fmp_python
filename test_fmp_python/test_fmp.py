@@ -5,7 +5,7 @@ from unittest.mock import patch
 import requests_mock
 
 from fmp_python.common.constants import BASE_URL
-from fmp_python.fmp import FMP
+from fmp_python.fmp import FMP, Interval
 
 
 @patch.dict(os.environ, {'FMP_API_KEY': 'demo'})
@@ -49,7 +49,7 @@ class TestFMP(unittest.TestCase):
         file_path = self.get_file_from_name('mock_historical_chart')
         with open(file_path) as f:
             mock_request.get(BASE_URL + "/historical-chart/1min/JMCRX?apikey=demo", text=f.read())
-            quote = fmp.get_historical_chart('JMCRX', '1min')
+            quote = fmp.get_historical_chart('JMCRX', Interval.MIN_1)
             self.assertIsInstance(quote, list)
 
     @requests_mock.Mocker()
@@ -58,7 +58,7 @@ class TestFMP(unittest.TestCase):
         file_path = self.get_file_from_name('mock_historical_chart_index')
         with open(file_path) as f:
             mock_request.get(BASE_URL + "/historical-chart/4hour/%5EGSPC?apikey=demo", text=f.read())
-            quote = fmp.get_historical_chart_index('GSPC', '4hour')
+            quote = fmp.get_historical_chart_index('GSPC', Interval.HOUR_4)
             self.assertIsInstance(quote, list)
 
     @requests_mock.Mocker()

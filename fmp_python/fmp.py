@@ -1,3 +1,5 @@
+from enum import Enum
+
 import requests
 import os
 from datetime import datetime
@@ -13,6 +15,15 @@ from fmp_python.common.requestbuilder import RequestBuilder
 """
 Base class that implements api calls 
 """
+
+
+class Interval(Enum):
+    MIN_1 = "1min"
+    MIN_5 = "5min"
+    MIN_15 = "15min"
+    MIN_30 = "30min"
+    HOUR_1 = "1hour"
+    HOUR_4 = "4hour"
 
 
 class FMP(object):
@@ -46,18 +57,15 @@ class FMP(object):
 
     @FMPDecorator.write_to_file
     @FMPDecorator.format_data
-    def get_historical_chart(self, symbol, interval):
-        if FMPValidator.is_valid_interval(interval):
-            rb = RequestBuilder(self.api_key)
-            rb.set_category('historical-chart')
-            rb.add_sub_category(interval)
-            rb.add_sub_category(symbol)
-            hc = self.__do_request__(rb.compile_request())
-            return hc
-        else:
-            raise FMPException('Interval value is not valid', FMP.get_historical_chart.__name__)
+    def get_historical_chart(self, symbol, interval: Interval):
+        rb = RequestBuilder(self.api_key)
+        rb.set_category('historical-chart')
+        rb.add_sub_category(interval.value)
+        rb.add_sub_category(symbol)
+        hc = self.__do_request__(rb.compile_request())
+        return hc
 
-    def get_historical_chart_index(self, symbol: str, interval):
+    def get_historical_chart_index(self, symbol: str, interval: Interval):
         return FMP.get_historical_chart(self, str(INDEX_PREFIX) + symbol, interval)
 
     @FMPDecorator.write_to_file
