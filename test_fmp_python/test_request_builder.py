@@ -27,7 +27,7 @@ class TestRequestBuilder(unittest.TestCase):
         rb.add_sub_category('^GSPC')
         self.assertEqual(rb.compile_request(), BASE_URL + "/historical-chart/1hour/^GSPC?apikey=demo")
 
-    def test_compile_resquest_param(self):
+    def test_compile_request_param(self):
         rb = RequestBuilder(api_key='demo')
         rb.set_category('balance-sheet-statement')
         rb.add_sub_category('AAPL')
