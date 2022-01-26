@@ -4,3 +4,5 @@ build/
 dist/
 fmp_python.egg-info/
 
+/venv/
+/.idea/**
