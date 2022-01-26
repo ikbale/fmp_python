@@ -18,7 +18,7 @@ class TestFMP(unittest.TestCase):
 
     @requests_mock.Mocker()
     def test_short_quote(self, mock_request):
-        fmp = FMP()
+        fmp = FMP(output_format='json')
         file_path = self.get_file_from_name('mock_quote_short')
         with open(file_path) as f:
             mock_request.get(BASE_URL + "/quote-short/AAPL?apikey=demo", text=f.read())
@@ -27,7 +27,7 @@ class TestFMP(unittest.TestCase):
 
     @requests_mock.Mocker()
     def test_get_quote(self, mock_request):
-        fmp = FMP()
+        fmp = FMP(output_format='json')
         file_path = self.get_file_from_name('mock_quote')
         with open(file_path) as f:
             mock_request.get(BASE_URL + "/quote/JMCRX,JSMTX,JUESX?apikey=demo", text=f.read())
@@ -36,7 +36,7 @@ class TestFMP(unittest.TestCase):
 
     @requests_mock.Mocker()
     def test_get_quote_index(self, mock_request):
-        fmp = FMP()
+        fmp = FMP(output_format='json')
         file_path = self.get_file_from_name('mock_quote_index')
         with open(file_path) as f:
             mock_request.get(BASE_URL + "/quote/%5EGSPC?apikey=demo", text=f.read())
@@ -45,27 +45,36 @@ class TestFMP(unittest.TestCase):
 
     @requests_mock.Mocker()
     def test_get_historical_chart(self, mock_request):
-        fmp = FMP()
+        fmp = FMP(output_format='json')
         file_path = self.get_file_from_name('mock_historical_chart')
         with open(file_path) as f:
             mock_request.get(BASE_URL + "/historical-chart/1min/JMCRX?apikey=demo", text=f.read())
-            quote = fmp.get_historical_chart('1min', 'JMCRX')
+            quote = fmp.get_historical_chart('JMCRX', '1min')
             self.assertIsInstance(quote, list)
 
     @requests_mock.Mocker()
     def test_get_historical_chart_index(self, mock_request):
-        fmp = FMP()
+        fmp = FMP(output_format='json')
         file_path = self.get_file_from_name('mock_historical_chart_index')
         with open(file_path) as f:
             mock_request.get(BASE_URL + "/historical-chart/4hour/%5EGSPC?apikey=demo", text=f.read())
-            quote = fmp.get_historical_chart_index('4hour', 'GSPC')
+            quote = fmp.get_historical_chart_index('GSPC', '4hour')
             self.assertIsInstance(quote, list)
 
     @requests_mock.Mocker()
     def test_get_historical_price(self, mock_request):
-        fmp = FMP()
+        fmp = FMP(output_format='json')
         file_path = self.get_file_from_name('mock_historical_price')
         with open(file_path) as f:
             mock_request.get(BASE_URL + "/historical-price-full/JMCRX?apikey=demo", text=f.read())
             quote = fmp.get_historical_price('JMCRX')
+            self.assertIsInstance(quote, list)
+
+    @requests_mock.Mocker()
+    def test_get_historical_price_limit(self, mock_request):
+        fmp = FMP(output_format='json')
+        file_path = self.get_file_from_name('mock_historical_price')
+        with open(file_path) as f:
+            mock_request.get(BASE_URL + "/historical-price-full/JMCRX?apikey=demo", text=f.read())
+            quote = fmp.get_historical_price('JMCRX', 5)
             self.assertIsInstance(quote, list)

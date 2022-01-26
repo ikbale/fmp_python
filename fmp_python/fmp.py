@@ -17,7 +17,7 @@ Base class that implements api calls
 
 class FMP(object):
 
-    def __init__(self, api_key=None, output_format='json', write_to_file=False):
+    def __init__(self, api_key=None, output_format='pandas', write_to_file=False):
         self.api_key = api_key or os.getenv('FMP_API_KEY')
         self.output_format = output_format
         self.write_to_file = write_to_file
@@ -46,7 +46,7 @@ class FMP(object):
 
     @FMPDecorator.write_to_file
     @FMPDecorator.format_data
-    def get_historical_chart(self, interval, symbol):
+    def get_historical_chart(self, symbol, interval):
         if FMPValidator.is_valid_interval(interval):
             rb = RequestBuilder(self.api_key)
             rb.set_category('historical-chart')
@@ -57,17 +57,19 @@ class FMP(object):
         else:
             raise FMPException('Interval value is not valid', FMP.get_historical_chart.__name__)
 
-    def get_historical_chart_index(self, interval, symbol):
-        return FMP.get_historical_chart(self, interval, str(INDEX_PREFIX) + symbol)
+    def get_historical_chart_index(self, symbol: str, interval):
+        return FMP.get_historical_chart(self, str(INDEX_PREFIX) + symbol, interval)
 
     @FMPDecorator.write_to_file
     @FMPDecorator.format_historical_data
-    def get_historical_price(self, symbol):
+    def get_historical_price(self, symbol: str, limit: int = None):
         rb = RequestBuilder(self.api_key)
         rb.set_category('historical-price-full')
         rb.add_sub_category(symbol)
+        rb.set_query_params({'timeseries': limit})
         hp = self.__do_request__(rb.compile_request())
         return hp
 
-    def __do_request__(self, url):
+    @staticmethod
+    def __do_request__(url):
         return requests.get(url)

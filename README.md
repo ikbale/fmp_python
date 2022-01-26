@@ -95,14 +95,14 @@ fmp.quote_short('AAL')
 *Reference*: https://financialmodelingprep.com/developer/docs/#Stock-Historical-Price
 
 ```
-fmp.get_historical_chart(interval:str, symbol: str)
+fmp.get_historical_chart(symbol: str, interval:str)
 ```
 
 *Usage Example*
 
 ```
 fmp = FMP(output_format = 'pandas', write_to_file= True)
-fmp.get_historical_chart('5min','AAL')
+fmp.get_historical_chart('AAL', '5min')
 ```
 
 ## Market Indexes
@@ -129,20 +129,20 @@ fmp.get_index_quote('GSPC')
 - By timelapse:
 
 ```
-fmp.get_historical_chart_index(interval:str,symbol: str)
+fmp.get_historical_chart_index(symbol: str, interval:str)
 ```
 
 *Usage Example*
 
 ```
 fmp = FMP(output_format = 'pandas', write_to_file= True)
-fmp.get_historical_chart_index('5min', GSPC')
+fmp.get_historical_chart_index('GSPC', '5min')
 ```
 
 - Daily:
 
 ```
-fmp.get_historical_price(symbol: str)
+fmp.get_historical_price(symbol: str, limit: int)
 ```
 
 *Usage Example*
