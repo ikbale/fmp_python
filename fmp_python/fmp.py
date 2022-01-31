@@ -1,6 +1,6 @@
 from enum import Enum
+from typing import List
 
-import requests
 import os
 from datetime import datetime
 
@@ -8,8 +8,6 @@ import requests
 
 from fmp_python.common.constants import INDEX_PREFIX
 from fmp_python.common.fmpdecorator import FMPDecorator
-from fmp_python.common.fmpexception import FMPException
-from fmp_python.common.fmpvalidator import FMPValidator
 from fmp_python.common.requestbuilder import RequestBuilder
 
 """
@@ -75,6 +73,29 @@ class FMP(object):
         rb.set_category('historical-price-full')
         rb.add_sub_category(symbol)
         rb.set_query_params({'timeseries': limit})
+        hp = self.__do_request__(rb.compile_request())
+        return hp
+
+    @FMPDecorator.write_to_file
+    @FMPDecorator.format_data
+    def get_stock_screener(self, market_cap_lt: int = None, market_cap_gt: int = None, price_lt: int = None,
+                           price_gt: int = None, beta_lt: float = None, beta_gt: float = None, volume_lt: int = None,
+                           volume_gt: int = None, dividend_lt: float = None, dividend_gt: float = None,
+                           is_etf: bool = None, exchange: List[str] = None, sector: List[str] = None,
+                           industry: List[str] = None, country: List[str] = ['US'], is_actively_trading: bool = True,
+                           limit: int = 1000):
+        rb = RequestBuilder(self.api_key)
+        rb.set_category('stock-screener')
+
+        rb.set_query_params({'marketCapLowerThan': market_cap_lt, 'marketCapMoreThan': market_cap_gt,
+                             'priceLowerThan': price_lt, 'priceMoreThan': price_gt, 'betaLowerThan': beta_lt,
+                             'betaMoreThan': beta_gt, 'volumeLowerThan': volume_lt, 'volumeMoreThan': volume_gt,
+                             'dividendLowerThan': dividend_lt, 'dividendMoreThan': dividend_gt, 'isEtf': is_etf,
+                             'exchange': ','.join(exchange) if exchange is not None else None,
+                             'sector': ','.join(sector) if sector is not None else None,
+                             'industry': ','.join(industry) if industry is not None else None,
+                             'country': ','.join(country) if country is not None else None,
+                             'isActivelyTrading': is_actively_trading, 'limit': limit})
         hp = self.__do_request__(rb.compile_request())
         return hp
 

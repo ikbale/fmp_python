@@ -31,11 +31,12 @@ class RequestBuilder(object):
         query_string = '?'
         while len(query_params_dict) > 0:
             item = query_params_dict.popitem()
-            pair_string = ''.join([item[0], '=', str(item[1])])
-            query_string = ''.join([query_string, pair_string])
+            if item[1] is not None:
+                pair_string = ''.join([item[0], '=', str(item[1])])
+                query_string = ''.join([query_string, pair_string])
 
-            if len(query_params_dict) != 0:
-                query_string = ''.join([query_string, '&'])
+                if len(query_params_dict) != 0:
+                    query_string = ''.join([query_string, '&'])
 
         return query_string
 

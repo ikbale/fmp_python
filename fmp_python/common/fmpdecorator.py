@@ -7,7 +7,7 @@ import pandas as pd
 from fmp_python.common.fmpexception import FMPException
 
 
-class FMPDecorator():
+class FMPDecorator:
 
     @classmethod
     def inject_api_key(cls, func):
