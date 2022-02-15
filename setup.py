@@ -11,7 +11,7 @@ with io.open(path.join(current_dir, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='fmp_python',
-    version='0.1.5',
+    version='0.1.7',
     description='Python wrapper for Financial Modeling Prep API',
     long_description=long_description,
     long_description_content_type='text/markdown',
