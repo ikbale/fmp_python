@@ -11,7 +11,7 @@ from fmp_python.common.fmpdecorator import FMPDecorator
 from fmp_python.common.requestbuilder import RequestBuilder
 
 """
-Base class that implements api calls 
+Base class that implements api calls
 """
 
 

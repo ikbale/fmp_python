@@ -1,8 +1,6 @@
 import functools
-import os
-from datetime import datetime
-
 import pandas as pd
+from datetime import datetime
 
 from fmp_python.common.fmpexception import FMPException
 
@@ -19,7 +17,6 @@ class FMPDecorator:
                 return request + '?apikey=' + api_key
             else:
                 return request + '&apikey=' + api_key
-
         return deco_function
 
     @classmethod
@@ -32,7 +29,8 @@ class FMPDecorator:
             elif self.output_format == 'pandas':
                 return pd.DataFrame(response.json())
             else:
-                raise FMPException("Output must be either pandas or json", FMPDecorator.format_data.__name__)
+                raise FMPException("Output must be either pandas or json",
+                                   FMPDecorator.format_data.__name__)
 
         return _call_wrapper
 
@@ -41,12 +39,14 @@ class FMPDecorator:
         @functools.wraps(func)
         def _call_wrapper(self, *args, **kwargs):
             response = func(self, *args, **kwargs)
+            resp = response.json()
             if self.output_format == 'json':
-                return response.json()['historical']
+                return resp.get('historical', [])
             elif self.output_format == 'pandas':
-                return pd.DataFrame(response.json()['historical'])
+                return pd.DataFrame(resp.get('historical', []))
             else:
-                raise FMPException("Output must be either pandas or json", FMPDecorator.format_historical_data.__name__)
+                raise FMPException("Output must be either pandas or json",
+                                   FMPDecorator.format_historical_data.__name__)
 
         return _call_wrapper
 
