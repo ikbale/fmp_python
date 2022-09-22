@@ -45,12 +45,19 @@ class FMP(object):
 
     @FMPDecorator.write_to_file
     @FMPDecorator.format_data
-    def get_historical_chart(self, interval, symbol):
+    def get_historical_chart(self, interval, symbol, _from=False, _to=False):
         if FMPValidator.is_valid_interval(interval):
             rb = RequestBuilder(self.api_key)
             rb.set_category('historical-chart')
             rb.add_sub_category(interval)
             rb.add_sub_category(symbol)
+            _range = {}
+            if _from:
+                _range.update({'from': _from})
+            if _to:
+                _range.update({'to': _to})
+            if _range:
+                rb.set_query_params(_range)
             hc = self.__do_request__(rb.compile_request())
             return hc
         else:
