@@ -28,6 +28,9 @@ class FMP(object):
 
     def __init__(self, api_key=None, output_format='pandas', write_to_file=False):
         self.api_key = api_key or os.getenv('FMP_API_KEY')
+        if self.api_key is None:
+            raise ValueError("API key is missing. Please provide a valid API key.")
+
         self.output_format = output_format
         self.write_to_file = write_to_file
         self.current_day = datetime.today().strftime('%Y-%m-%d')
@@ -96,6 +99,15 @@ class FMP(object):
                              'industry': ','.join(industry) if industry is not None else None,
                              'country': ','.join(country) if country is not None else None,
                              'isActivelyTrading': is_actively_trading, 'limit': limit})
+        hp = self.__do_request__(rb.compile_request())
+        return hp
+
+    @FMPDecorator.write_to_file
+    @FMPDecorator.format_historical_data
+    def stock_price_change(self, symbol: str):
+        rb = RequestBuilder(self.api_key)
+        rb.set_category('stock-price-change')
+        rb.add_sub_category(symbol)
         hp = self.__do_request__(rb.compile_request())
         return hp
 

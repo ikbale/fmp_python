@@ -44,9 +44,12 @@ class FMPDecorator:
             response = func(self, *args, **kwargs)
             resp = response.json()
             if self.output_format == 'json':
-                return resp.get('historical', [])
+                return resp
             elif self.output_format == 'pandas':
-                return pd.DataFrame(resp.get('historical', []))
+                if isinstance(resp, dict):
+                    return pd.DataFrame(resp.get('historical', []))
+                else:
+                    return pd.DataFrame(resp)
             else:
                 raise FMPException("Output must be either pandas or json",
                                    FMPDecorator.format_historical_data.__name__)

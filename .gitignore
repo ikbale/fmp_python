@@ -2,7 +2,10 @@ __pycache__/
 .vscode/
 build/
 dist/
-fmp_python.egg-info/
+fmp_python.egg-info/**
 
 /venv/
 /.idea/**
+/.github/**
+/.benchmarks/**
+/.pytest_cache/**

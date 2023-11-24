@@ -1,7 +1,12 @@
+import logging
+
 from fmp_python.common.constants import BASE_URL
 from fmp_python.common.fmpdecorator import FMPDecorator
 from fmp_python.common.fmpexception import FMPException
 from fmp_python.common.fmpvalidator import FMPValidator
+
+logging.basicConfig(level=logging.DEBUG,  # Set the minimum logging level
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class RequestBuilder(object):
@@ -63,4 +68,6 @@ class RequestBuilder(object):
         subcategories = self.__build_subcategories()
         query_params = self.__build_query_params()
 
-        return ''.join([self.__base_url, category, subcategories, query_params])
+        request = ''.join([self.__base_url, category, subcategories, query_params])
+        logging.info(request)
+        return request

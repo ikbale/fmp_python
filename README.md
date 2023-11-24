@@ -52,7 +52,7 @@ fmp.get_quote('AAL')
 
 You can choose which output format you want your data **output_format = 'pandas' or 'json'**.
 
-*'json' is the default value*
+*'pandas' is the default value*
 
 You can also choose if you want the output to be stored in a file (in C:/tmp) by setting **write_to_file = True**
 
@@ -69,9 +69,15 @@ fmp.get_quote(symbol: str)
 *Usage Example*
 
 ```
-fmp = FMP(output_format = 'pandas', write_to_file= True)
+fmp: DataFrame = FMP(api_key="YOURAPIKEY")
+fmp.get_quote('AAL')
+
+OR
+
+fmp = FMP(output_format = 'json', write_to_file= True)
 fmp.get_quote('AAL')
 ```
+
 
 ## Stock Time Series
 
@@ -86,8 +92,8 @@ fmp.get_quote_short(symbol: str)
 *Usage Example*
 
 ```
-fmp = FMP(output_format = 'pandas', write_to_file= True)
-fmp.quote_short('AAL')
+fmp: DataFrame = FMP(api_key="YOURAPIKEY")
+fmp.get_quote('AAL')
 ```
 
 ### 2. Stock Historical Price
@@ -129,25 +135,12 @@ fmp.get_index_quote('GSPC')
 - By timelapse:
 
 ```
-fmp.get_historical_chart_index(symbol: str, interval:str)
-```
-
-*Usage Example*
-
-```
-fmp = FMP(output_format = 'pandas', write_to_file= True)
-fmp.get_historical_chart_index('GSPC', '5min')
-```
-
-- Daily:
-
-```
-fmp.get_historical_price(symbol: str, limit: int)
-```
-
-*Usage Example*
-
-```
-fmp = FMP(output_format = 'pandas', write_to_file= True)
+fmp.get_historical_chart_index("AAPL", Interval.HOUR_4)
+fmp.get_historical_chart_index('GSPC', Interval.MIN_1)
 fmp.get_historical_price('GSPC')
 ```
+
+### Run Tests
+1. Add your API key to the `API_KEY` in `test_main.py`
+
+2. Now run the tests in the folder `test_fmp_python`
